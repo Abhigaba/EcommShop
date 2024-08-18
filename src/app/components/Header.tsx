@@ -10,7 +10,8 @@ const Header = () => {
     const itemCount = cart.length
     const router = useRouter()
     const {userId, setuserId} = useAuth()
-    const username = JSON.parse(localStorage.getItem(str) || '')
+    const storeduser = localStorage.getItem(str) || ''
+    const username = storeduser ?  JSON.parse(storeduser) : ''
     const handleCart = (e:any) => {
         e.preventDefault();
         router.push('/Cart')

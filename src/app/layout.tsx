@@ -45,7 +45,8 @@ const App = ({ children }: { children: React.ReactNode }) => {
   return loading ? (
     <AppLoading />
   ) : (
-    <>      <Header />
+    <>      
+    <Header />
       <Toaster /> 
       {children}
       </>
