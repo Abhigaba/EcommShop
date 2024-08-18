@@ -36,7 +36,7 @@ const Cart = () => {
                         </thead>
                         <tbody>
                         {cart.map((item, index) => (
-                            <CartBody item={item}></CartBody>
+                            <CartBody item={item} key={index}></CartBody>
                         ))}
                         </tbody>
                     </table>

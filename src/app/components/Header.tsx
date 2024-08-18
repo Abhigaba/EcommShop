@@ -5,11 +5,12 @@ import DiscountHeader from './DiscountHeader'
 import { useAuth } from '../contexts/useAuth'
 const Header = () => {
 
+    const str = 'username'
     const {cart, setCart} = useCart()
     const itemCount = cart.length
     const router = useRouter()
     const {userId, setuserId} = useAuth()
-    const username = JSON.parse(localStorage.getItem('username'))
+    const username = JSON.parse(localStorage.getItem(str) || '')
     const handleCart = (e:any) => {
         e.preventDefault();
         router.push('/Cart')

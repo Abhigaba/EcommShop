@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const {userId,  productId, quantity} = body;
 
     const user = await User.findOne({userId})
-    const cartitem = user?.cart.findIndex(item => item.id === productId);
+    const cartitem = user?.cart.findIndex(item => item.id === productId) || -1;
 
     console.log(userId)   
     if (!user) { 

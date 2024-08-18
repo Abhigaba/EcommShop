@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [userId, setuserId] = useState('')
 
     useEffect(() => {
-      const  storedUserId = localStorage.getItem('userId');
+      const  storedUserId = localStorage.getItem('userId') || '';
       const userId = JSON.parse(storedUserId)
       if (userId) {
         setuserId(userId);

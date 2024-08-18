@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
         const body = await req.json()
         const {userId} = body
 
-        // Find the user and populate the cart
+
         const user = await User.findOne({ userId });
         console.log(user)
         if (!user) {
