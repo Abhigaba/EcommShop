@@ -11,8 +11,8 @@ const ProductList = () => {
         return(
                 <div className='flex  flex-wrap justify-center'>
                 {
-                products.map((item :any) => (
-                    <ProductCard item={item}></ProductCard>
+                products.map((item :any, index) => (
+                    <ProductCard key={index} item={item}></ProductCard>
                 ))
                 }
             </div>

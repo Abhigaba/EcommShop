@@ -3,10 +3,19 @@ import React from 'react'
 import { useCart } from '../contexts/useCart'
 import { CartBody } from '../components/CartBody'
 import CartSummary from '../components/CartSummary'
+import { useAuth } from '../contexts/useAuth'
+import { useRouter } from 'next/navigation'
 const Cart = () => {
 
-  const {cart} = useCart()
   
+    const {userId} = useAuth()
+    const router = useRouter()
+
+    if (!userId){
+        router.push('/Login');
+    }
+
+    const {cart} = useCart()
   return (
 
     <div className="bg-gray-100 h-screen py-8">

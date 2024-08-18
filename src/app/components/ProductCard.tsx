@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { useCart } from '../contexts/useCart';
 import toast from 'react-hot-toast';
-
+import axios from 'axios';
+import { useAuth } from '../contexts/useAuth';
 interface ProductCardProps {
   item: {
     id: number;
@@ -9,11 +10,12 @@ interface ProductCardProps {
     name: string;
     price: number;
   };
+  key:number
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
   const { addToCart } = useCart();
-  
+  const {userId} = useAuth()
   const { id, image, name, price } = useMemo(() => ({
     id: item.id,
     image: item.image,
@@ -21,14 +23,26 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     price: item.price,
   }), [item]);
 
-
-
   const handleCart = useMemo(() => () => {
+    
     addToCart({ id: id, image: image, name: name, price: price, quantity: 1 });
+    
     toast.success(`${name} added to cart!`, {
       duration: 4000,
       position: 'bottom-center',
     });
+
+    try{
+      console.log(1)
+    const handler = async () =>{ 
+    const res = await axios.post('/api/AddToCart', {userId: userId, productId: id , image:image, name: name, price: price})
+    }
+    handler()
+  }
+  
+    catch(error: any){
+      console.log(error)
+    }
   }, [addToCart, id, image, name, price]);
 
   return (

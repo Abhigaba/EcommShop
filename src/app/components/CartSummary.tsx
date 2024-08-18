@@ -1,10 +1,14 @@
 import React, { useMemo } from 'react'
 import { useCart } from '../contexts/useCart'
 import toast from 'react-hot-toast'
+import axios from 'axios'
+import { useAuth } from '../contexts/useAuth'
+import { useRouter } from 'next/navigation'
 const CartSummary = () => {
 
-    const {cart} = useCart()
-    
+    const {cart, setCart} = useCart()
+    const {userId} = useAuth()
+    const router = useRouter()
       
         const subtotal = useMemo(() => {
           return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -24,8 +28,17 @@ const CartSummary = () => {
                 return subtotal - discount;
         }, [subtotal, discount]);
 
-        const handleToast = () => {}
-        
+        const handleToast = async () => {
+
+        await axios.post('/api/Checkout',{userId: userId});
+        setCart([])
+
+        toast.success(`Checkout successfull`, {
+            duration: 4000,
+            position: 'bottom-center',
+          })
+        router.push('/')
+        ;}
 
   return (
     

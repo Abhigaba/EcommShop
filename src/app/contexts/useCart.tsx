@@ -1,6 +1,8 @@
 "use client"
 import { createContext, useContext, useState, ReactNode } from "react";
 import { useEffect } from "react";
+import { useAuth } from "./useAuth";
+import axios from "axios";
 // Define the type for a cart item
 interface CartItem {
   id: number;
@@ -25,11 +27,24 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 // Create a provider component
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-
+  const {userId} = useAuth()
 
   useEffect(() => {
-    console.log('Cart updated:', cart);
-}, [cart]);
+    try{
+    const updateCart = async () => {
+      const res = await axios.post('/api/UpdateCart', {userId: userId})
+      setCart(res.data.cart || []);
+    }
+    if (!userId){
+      return
+    };
+    console.log(userId)
+    updateCart()
+  }
+    catch(error:any){
+      console.log(error.message);
+    }
+}, [userId]);
 
 const addToCart = (data: CartItem) => {
   setCart((prev) => {

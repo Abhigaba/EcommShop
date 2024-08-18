@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useCart } from '../contexts/useCart';
 import toast from 'react-hot-toast';
+import axios from 'axios';
+import { useAuth } from '../contexts/useAuth';
+
 interface CartItem {
     id: number;
     image: string;
@@ -16,9 +19,15 @@ interface CartItem {
 export const CartBody: React.FC<CartBodyProps>= ({item}) => {
 
     const {removeFromCart, editQuantity} = useCart()
-    
+    const {userId} = useAuth()
+
     const handleRemove = (item: number) => {
             removeFromCart(item);
+
+            const handlerDatabase = async () => {
+              const res = await axios.post('/api/RemoveFromCart', {userId: userId, productId:item})
+            } 
+            handlerDatabase();
     }
 
     const [quant, setquant] = useState(item.quantity)
@@ -26,6 +35,10 @@ export const CartBody: React.FC<CartBodyProps>= ({item}) => {
     const increaseQuant = () => {
         setquant((prev) => prev + 1)
         editQuantity(item.id, quant + 1)        
+        const handleDatabaseInc = async () => {
+          await axios.post('/api/EditCart', {userId: userId, productId: item.id, quantity: quant + 1})
+        }
+        handleDatabaseInc()
     }
 
     const DecreaseQuant = () => {
@@ -38,6 +51,11 @@ export const CartBody: React.FC<CartBodyProps>= ({item}) => {
         }
         setquant((prev) => prev - 1)
         editQuantity(item.id, quant - 1)
+
+        const handleDatabaseDec = async () => {
+          await axios.post('/api/EditCart', {userId: userId, productId: item.id, quantity: quant - 1})
+        }
+        handleDatabaseDec()
     }
   return (
     <>

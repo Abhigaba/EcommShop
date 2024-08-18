@@ -6,7 +6,7 @@ import { CartProvider } from "./contexts/useCart";
 import { ProductProvider } from "./contexts/useProducts";
 import { Toaster } from "react-hot-toast";
 import { useProducts } from "./contexts/useProducts";
-
+import { AuthProvider } from "./contexts/useAuth";
 const inter = Inter({ subsets: ["latin"] });
 
 const AppLoading = () => (
@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
        <body className={inter.className}>
+       <AuthProvider>
       <ProductProvider>
         <CartProvider>
        
@@ -32,6 +33,7 @@ export default function RootLayout({
          
         </CartProvider>
         </ProductProvider>    
+        </AuthProvider>
         </body>  
     </html>
   );
@@ -43,10 +45,9 @@ const App = ({ children }: { children: React.ReactNode }) => {
   return loading ? (
     <AppLoading />
   ) : (
-    <body className="inter-className">
-      <Header />
+    <>      <Header />
       <Toaster /> 
       {children}
-    </body>
+      </>
   );
 };
