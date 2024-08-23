@@ -8,6 +8,7 @@ import { useCart } from '../contexts/useCart'
 const Login = () => {
 
   const {userId, setuserId} = useAuth() 
+  const [loading, setloading] = useState(false)
   const {setCart} = useCart()
   const router = useRouter()
   const [error, seterror] = useState('')
@@ -20,8 +21,8 @@ const Login = () => {
     function Button({value}: any) {
         return (
           <button 
-            className="mt-6 transition-all block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-teal-600 transform hover:-translate-y-1 hover:shadow-lg">
-            {value}
+            className={`mt-6 transition-all block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-teal-600 transform hover:-translate-y-1 hover:shadow-lg`}>
+            {loading ? <div className='h-5 w-5 m-auto border-2 border-t-2 border-white border-solid rounded-full animate-spin'></div> :value}
         </button>
         )
       }
@@ -43,6 +44,7 @@ const Login = () => {
 
     const handleLogin = async (e: any) => {
       e.preventDefault()
+      setloading(true);
       const email = e.target[0].value
       const pass = e.target[1].value
 
@@ -59,6 +61,10 @@ const Login = () => {
       catch(error: any) { 
           seterror(error.response.data.error);
           console.log(error);
+      
+      }
+      finally{
+        setloading(false);
       }
     }
   return (

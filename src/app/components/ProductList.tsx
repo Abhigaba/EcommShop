@@ -9,7 +9,7 @@ const ProductList = () => {
         const {products} = useProducts()
 
         return(
-                <div className='flex  flex-wrap justify-center'>
+                <div className='flex w-full flex-wrap gap-2 justify-center'>
                 {
                 products.map((item :any, index) => (
                     <ProductCard key={index} item={item}></ProductCard>
