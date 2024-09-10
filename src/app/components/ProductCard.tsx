@@ -3,6 +3,7 @@ import { useCart } from '../contexts/useCart';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useAuth } from '../contexts/useAuth';
+
 interface ProductCardProps {
   item: {
     id: number;
@@ -85,6 +86,5 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
           Add to cart
         </button>
       </div>
-
   );
 };

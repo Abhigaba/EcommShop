@@ -12,7 +12,9 @@ const Login = () => {
   const {setCart} = useCart()
   const router = useRouter()
   const [error, seterror] = useState('')
-  
+  const [email, setEmail] = useState('test123@gmail.com');
+  const [pass, setPass] = useState('12345678')
+
   if (userId) {
     router.push('/')
   }
@@ -27,7 +29,15 @@ const Login = () => {
         )
       }
       
-        function Input({type, id, name, label, placeholder, autofocus} : any) {
+      const onChangeEmail = (e:any) => {
+        setEmail(e.target.value);
+      } 
+
+      const onChangePass = (e:any) => {
+        setPass(e.target.value);
+      }
+
+        function Input({type, id, name, label, placeholder, autofocus, onChange, value} : any) {
           return (
             <label className="text-gray-500 block mt-3">{label}
               <input
@@ -35,7 +45,9 @@ const Login = () => {
                 type={type} 
                 id={id} 
                 name={name} 
+                value={value}
                 placeholder={placeholder}
+                onChange={(e) => onChange(e)}
                 className="rounded px-4 py-3 w-full mt-1 bg-white text-gray-900 border border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-100"/>
             </label>
           )
@@ -72,8 +84,8 @@ const Login = () => {
     <div className="relative border-t-8 rounded-sm border-teal-600 bg-white px-12 pt-8 pb-16 shadow-2xl w-96">
       <h1 className="font-bold text-center block text-2xl">Log In</h1>
       <form onSubmit={(e) => handleLogin(e)}>
-      <Input type="email" id="email" name="email" label="Email Address" placeholder="me@example.com" autofocus={true}/>
-      <Input type="password" id="password" name="password" label="Password" placeholder="••••••••••" />
+      <Input type="email" id="email" onChange={onChangeEmail} value={email} name="email" label="Email Address" placeholder="me@example.com" autofocus={true}/>
+      <Input type="password" id="password" name="password" value={pass} onChange={onChangePass} label="Password" placeholder="••••••••••" />
       <Button value="Submit" />
       </form>
       {error && <p className='font-medium text-lg mt-2 text-red-500'>{error}</p>}
