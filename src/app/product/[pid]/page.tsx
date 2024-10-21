@@ -25,7 +25,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   useEffect(() => {
   const getProductData  = async (pid: string) => {
     
-    const res = await axios.get(`http://localhost:3000/api/product/${pid}`);
+    const res = await axios.get(`/api/product/${pid}`);
 
     const data= res.data
     const prod: ProductType = {
