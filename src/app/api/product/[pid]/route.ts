@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-
+import axios from 'axios';
 export async function GET(request: Request, { params }: { params: { pid: string } }) {
   try {
-    const res = await fetch('https://ecomm-shopease.vercel.app/util/data.json');
-    const prod = await res.json();
-    const products = prod.products 
+    const res = await axios.get('https://ecomm-shopease.vercel.app/util/data.json');
+    const products = res.data.products
     
     // Find the product with the matching pid
     const product = products.find((x: any) => x.id.toString() === params.pid);

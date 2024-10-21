@@ -72,7 +72,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
 
   return (
-    <div className="bg-gray-100 pt-36">
+    <div className="bg-gray-100 pt-24 fold:pt-36">
       <div className="container  mx-auto px-4 py-8">
         <div className="flex flex-wrap -mx-4">
         
@@ -80,14 +80,14 @@ export default function ProductPage({ params }: ProductPageProps) {
           <div className='relative w-full fold:w-11/12 bg-[#f9edda] rounded-lg flex justify-center items-center'>
           <div className="absolute inset-0  rounded-xl bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0)_0%,_rgba(0,0,0,0.3)_100%)] z-10"></div>
            <img
-            className="object-scale-down h-[35em] w-full flex overflow-hidden rounded-xl relative z-0"
+            className="object-contain h-[20em] fold:h-[35em] w-full flex overflow-hidden rounded-xl relative z-0"
             src={product?.image}
             alt={product?.title}
           />
           </div>
           </div>
 
-          <div className="w-full md:w-1/2 px-4 py-10">
+          <div className="w-full md:w-1/2 px-4 py-3 fold:py-10">
             <h2 className="text-3xl font-bold mb-2">{product?.title}</h2>
             <p className="text-gray-600 mb-4">{`(In Stock)`}</p>
             <div className="mb-4">
