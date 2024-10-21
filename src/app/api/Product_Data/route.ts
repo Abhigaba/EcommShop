@@ -4,7 +4,7 @@ import path from 'path'
 export async function GET() {
 
     try{ 
-    const jsonData = await axios.get('http://localhost:3000/util/data.json');
+    const jsonData = await axios.get('https://ecomm-shopease.vercel.app/util/data.json');
     return NextResponse.json(jsonData)
     }
     catch(error: any) { 
