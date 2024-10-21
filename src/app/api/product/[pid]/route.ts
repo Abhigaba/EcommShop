@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request, { params }: { params: { pid: string } }) {
   try {
-    const res = await fetch('http://localhost:3000/util/data.json');
+    const res = await fetch('https://ecomm-shopease.vercel.app/util/data.json');
     const prod = await res.json();
     const products = prod.products 
     
