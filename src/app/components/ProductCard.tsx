@@ -17,6 +17,7 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
   const { addToCart } = useCart();
   const {userId} = useAuth()
+
   const { id, image, name, price } = useMemo(() => ({
     id: item.id,
     image: item.image,
@@ -24,8 +25,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     price: item.price,
   }), [item]);
 
-  const handleCart = useMemo(() => () => {
+  const handleCart = (e: any) => {
     
+    e.preventDefault();
     addToCart({ id: id, image: image, name: name, price: price, quantity: 1 });
     
     toast.success(`${name} added to cart!`, {
@@ -34,7 +36,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     });
 
     try{
-      console.log(1)
     const handler = async () =>{ 
     const res = await axios.post('/api/AddToCart', {userId: userId, productId: id , image:image, name: name, price: price})
     }
@@ -44,7 +45,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     catch(error: any){
       console.log(error)
     }
-  }, [addToCart, id, image, name, price]);
+  };
 
   return (
     <div className="relative  md:m-3 lg:m-4 flex w-[160px] h-[350px] fold:w-[300px]  flex-col justify-around overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md hover:scale-105 duration-200">
@@ -52,7 +53,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
         <div className='relative h-[168px] fold:h-[184px] bg-[#f9edda] rounded-lg flex justify-center items-center'>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0)_0%,_rgba(0,0,0,0.3)_100%)] z-10"></div>
            <img
-            className=" object-cover h-[168px] fold:h-[167px] fold:mx-3 mt-3 flex  fold:w-full  overflow-hidden rounded-xl relative z-0"
+            className=" object-scale-down h-[168px] fold:h-[167px] fold:mx-3 mt-3 flex  fold:w-full  overflow-hidden rounded-xl relative z-0"
             src={image}
             alt={`${name} image`}
           />

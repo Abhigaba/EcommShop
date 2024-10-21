@@ -10,17 +10,16 @@ export async function POST(req: NextRequest) {
     try{
     const body = await req.json()
     const {userId,  productId, quantity} = body;
-        console.log(quantity)
     const user = await User.findOne({userId})
-    const cartitem = user?.cart.findIndex(item => item.id === productId) || -1;
+   
+    const cart = user?.cart || []
+    const  cartitem = cart.findIndex(product => product.id === productId);
 
-    console.log(userId)   
     if (!user) { 
             return NextResponse.json({ error: 'User not found' })
     }
 
-        user.cart[cartitem].quantity = quantity;
-
+    user.cart[cartitem].quantity = quantity;
     await user.save();
     console.log('user saved successfully')
     return NextResponse.json({ message: 'Cart updated successfully', cart: user.cart })}

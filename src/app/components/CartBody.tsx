@@ -3,19 +3,8 @@ import { useCart } from '../contexts/useCart';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useAuth } from '../contexts/useAuth';
+import { CartBodyProps, CartItem } from '../util/interface';
 
-interface CartItem {
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    quantity: number;
-  }
-  
-  // Define the props interface
-  interface CartBodyProps {
-    item: CartItem;
-  }
 export const CartBody: React.FC<CartBodyProps>= ({item}) => {
 
     const {removeFromCart, editQuantity} = useCart()
@@ -50,14 +39,13 @@ export const CartBody: React.FC<CartBodyProps>= ({item}) => {
               });
             return
         }
-        setquant((prev) => prev - 1)
-        editQuantity(item.id, quant - 1)
 
-        const handleDatabaseDec = async () => {
-        
+        const handleDatabaseDec = async () => {        
           await axios.post('/api/EditCart', {userId: userId, productId: item.id, quantity: quant - 1})
         }
         handleDatabaseDec()
+        setquant((prev) => prev - 1)
+        editQuantity(item.id, quant - 1)
     }
   return (
     <>
@@ -76,7 +64,7 @@ export const CartBody: React.FC<CartBodyProps>= ({item}) => {
         <div className='group relative   h-full w-1/2  fold:w-full fold:h-2/3   bg-[#f9edda] rounded-lg flex justify-center items-center'>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0)_0%,_rgba(0,0,0,0.3)_100%)] z-10"></div>
            <img
-            className=" object-cover h-full fold:mx-3 mt-3 flex  fold:w-full  overflow-hidden rounded-xl relative z-0"
+            className=" object-scale-down h-full fold:mx-3 mt-3 flex  fold:w-full  overflow-hidden rounded-xl relative z-0"
             src={item.image}
             alt={`${item.name} image`}
           />

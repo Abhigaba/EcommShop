@@ -3,23 +3,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 import { useEffect } from "react";
 import { useAuth } from "./useAuth";
 import axios from "axios";
-// Define the type for a cart item
-interface CartItem {
-  id: number;
-  name: string;
-  quantity: number;
-  image: string;
-  price: number;
-}
-
-// Define the shape of the CartContext
-interface CartContextType {
-  cart: CartItem[];
-  setCart: (data: CartItem[]) => void;
-  addToCart: (data: CartItem) => void;
-  removeFromCart: (id: number) => void; 
-  editQuantity: (id: number, quantity: number) => void;
-}
+import { CartItem, CartContextType } from "../util/interface";
 
 // Create the context with a default value
 const CartContext = createContext<CartContextType | undefined>(undefined);

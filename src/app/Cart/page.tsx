@@ -5,6 +5,7 @@ import { CartBody } from '../components/CartBody'
 import CartSummary from '../components/CartSummary'
 import { useAuth } from '../contexts/useAuth'
 import { useRouter } from 'next/navigation'
+
 const Cart = () => {
 
   
