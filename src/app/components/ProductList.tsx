@@ -13,7 +13,7 @@ const ProductList = () => {
                 {
                 products.map((item :any, index) => (
 
-                    <Link href={`/product/${item.id}`}><ProductCard key={index} item={item}></ProductCard></Link>
+                    <Link key={index} href={`/product/${item.id}`}><ProductCard key={index} item={item}></ProductCard></Link>
                 ))
                 }
             </div>

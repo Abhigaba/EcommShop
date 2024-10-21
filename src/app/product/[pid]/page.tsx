@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { useCart } from '@/app/contexts/useCart';
 import { useAuth } from '@/app/contexts/useAuth';
 import { Reviews, ProductType } from '@/app/util/interface';
+import Image from 'next/image';
 
 type ProductPageProps = {
   params: { pid: string };
@@ -42,11 +43,11 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   getProductData(pid);
-  }, [])
+  }, [pid])
   console.log(product)
 
 
-  const handleCart = useMemo(() => () => {
+  const handleCart =  () => {
     
     if (product) {
     addToCart({ id: product?.id, image: product?.image, name: product?.title, price: product?.price, quantity: quantity });
@@ -67,7 +68,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     catch(error: any){
       console.log(error)
     }
-  }, [addToCart, product?.id, product?.image, product?.title, product?.price]);
+  }
 
 
   return (
@@ -81,6 +82,7 @@ export default function ProductPage({ params }: ProductPageProps) {
            <img
             className="object-scale-down h-[35em] w-full flex overflow-hidden rounded-xl relative z-0"
             src={product?.image}
+            alt={product?.title}
           />
           </div>
           </div>
