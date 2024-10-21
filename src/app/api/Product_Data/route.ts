@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
+import axios from "axios";
 import path from 'path'
 export async function GET() {
 
     try{ 
-    const res = await fetch('http://localhost:3000/util/data.json');
-    const jsonData = await res.json();
+    const jsonData = await axios.get('http://localhost:3000/util/data.json');
     return NextResponse.json(jsonData)
     }
     catch(error: any) { 
