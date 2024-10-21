@@ -5,7 +5,7 @@ export async function GET() {
 
     try{ 
     const jsonData = await axios.get('https://ecomm-shopease.vercel.app/util/data.json');
-    return NextResponse.json(jsonData)
+    return NextResponse.json(jsonData.data)
     }
     catch(error: any) { 
         console.log(error.message)
